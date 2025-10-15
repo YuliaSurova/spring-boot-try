@@ -7,10 +7,11 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record CreateExpenseTransactionRequest(
+public record CreateTransactionRequest(
 		@NotNull LocalDateTime occurredAt,
 		@NotBlank String category,
 		@NotNull @Positive BigDecimal amount,
-		@NotBlank String place
+		@NotBlank String place,
+		@NotNull TransactionType type
 ) {
 }

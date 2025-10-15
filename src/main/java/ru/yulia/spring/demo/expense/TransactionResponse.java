@@ -3,21 +3,23 @@ package ru.yulia.spring.demo.expense;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record ExpenseTransactionResponse(
+public record TransactionResponse(
 		Long id,
 		LocalDateTime occurredAt,
 		String category,
 		BigDecimal amount,
-		String place
+		String place,
+		TransactionType type
 ) {
 
-	public static ExpenseTransactionResponse fromEntity(ExpenseTransaction transaction) {
-		return new ExpenseTransactionResponse(
+	public static TransactionResponse fromEntity(Transaction transaction) {
+		return new TransactionResponse(
 				transaction.getId(),
 				transaction.getOccurredAt(),
 				transaction.getCategory(),
 				transaction.getAmount(),
-				transaction.getPlace()
+				transaction.getPlace(),
+				transaction.getType()
 		);
 	}
 }

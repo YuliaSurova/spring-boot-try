@@ -2,6 +2,8 @@ package ru.yulia.spring.demo.expense;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,8 +13,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expense_transactions")
-public class ExpenseTransaction {
+@Table(name = "transactions")
+public class Transaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +32,20 @@ public class ExpenseTransaction {
 	@Column(nullable = false, length = 255)
 	private String place;
 
-	protected ExpenseTransaction() {
+	@Column(nullable = false, length = 20)
+	@Enumerated(EnumType.STRING)
+	private TransactionType type;
+
+	protected Transaction() {
 		// for JPA
 	}
 
-	public ExpenseTransaction(LocalDateTime occurredAt, String category, BigDecimal amount, String place) {
+	public Transaction(LocalDateTime occurredAt, String category, BigDecimal amount, String place, TransactionType type) {
 		this.occurredAt = occurredAt;
 		this.category = category;
 		this.amount = amount;
 		this.place = place;
+		this.type = type;
 	}
 
 	public Long getId() {
@@ -59,5 +66,9 @@ public class ExpenseTransaction {
 
 	public String getPlace() {
 		return place;
+	}
+
+	public TransactionType getType() {
+		return type;
 	}
 }
