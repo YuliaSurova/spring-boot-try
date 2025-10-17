@@ -51,6 +51,6 @@ public class TransactionService {
 		}
 
 		BigDecimal balance = totalIncome.subtract(totalExpenses);
-		return new TransactionSummaryResponse(balance, totalExpenses, monthlyIncome, monthlyExpenses);
+		return new TransactionSummaryResponse(balance, totalIncome, totalExpenses, monthlyIncome, monthlyExpenses);
 	}
 }

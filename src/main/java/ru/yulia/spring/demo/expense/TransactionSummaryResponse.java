@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 
 public record TransactionSummaryResponse(
 		BigDecimal balance,
+		BigDecimal totalIncome,
 		BigDecimal totalExpenses,
 		BigDecimal monthlyIncome,
-		BigDecimal monthlyExpenses
+		BigDecimal monthlyExpenses		
 ) {
 }
