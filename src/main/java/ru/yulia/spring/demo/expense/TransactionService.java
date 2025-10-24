@@ -53,4 +53,9 @@ public class TransactionService {
 		BigDecimal balance = totalIncome.subtract(totalExpenses);
 		return new TransactionSummaryResponse(balance, totalIncome, totalExpenses, monthlyIncome, monthlyExpenses);
 	}
+	
+	@Transactional
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
 }

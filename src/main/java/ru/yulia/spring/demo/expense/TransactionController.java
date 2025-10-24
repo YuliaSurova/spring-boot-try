@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,5 +54,12 @@ public class TransactionController {
 	@Operation(summary = "Получить сводные данные по операциям")
 	public ResponseEntity<TransactionSummaryResponse> getSummary() {
 		return ResponseEntity.ok(service.getSummary());
+	}
+	
+	@Operation(summary = "Удалить транзакцию по ID")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+		service.deleteById(id);
+		return ResponseEntity.noContent().build();
 	}
 }
