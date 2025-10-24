@@ -29,15 +29,8 @@ public class TransactionController {
 	@PostMapping("/create")
 	@Operation(summary = "Создать транзакцию")
 	public ResponseEntity<TransactionResponse> create(@Valid @RequestBody CreateTransactionRequest request) {
-		Transaction transaction = new Transaction(
-				request.occurredAt(),
-				request.category(),
-				request.amount(),
-				request.place(),
-				request.type()
-		);
-		Transaction saved = service.save(transaction);
-		return ResponseEntity.status(HttpStatus.CREATED).body(TransactionResponse.fromEntity(saved));
+		TransactionResponse saved = service.create(request);
+		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
 
 	@GetMapping("/all")

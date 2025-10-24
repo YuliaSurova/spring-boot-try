@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public record CreateTransactionRequest(
 		@NotNull LocalDateTime occurredAt,
-		@NotBlank String category,
+		@NotNull @Positive Long categoryId,
 		@NotNull @Positive BigDecimal amount,
 		@NotBlank String place,
 		@NotNull TransactionType type

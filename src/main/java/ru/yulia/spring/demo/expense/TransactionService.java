@@ -11,14 +11,25 @@ import java.util.List;
 public class TransactionService {
 
 	private final TransactionRepository repository;
+	private final CategoryService categoryService;
 
-	public TransactionService(TransactionRepository repository) {
+	public TransactionService(TransactionRepository repository, CategoryService categoryService) {
 		this.repository = repository;
+		this.categoryService = categoryService;
 	}
 
 	@Transactional
-	public Transaction save(Transaction transaction) {
-		return repository.save(transaction);
+	public TransactionResponse create(CreateTransactionRequest request) {
+		Category category = categoryService.requireById(request.categoryId());
+		Transaction transaction = new Transaction(
+				request.occurredAt(),
+				category,
+				request.amount(),
+				request.place(),
+				request.type()
+		);
+		Transaction saved = repository.save(transaction);
+		return TransactionResponse.fromEntity(saved);
 	}
 
 	@Transactional(readOnly = true)

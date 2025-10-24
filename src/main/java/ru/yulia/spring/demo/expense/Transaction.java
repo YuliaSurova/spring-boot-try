@@ -4,9 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
@@ -23,8 +26,9 @@ public class Transaction {
 	@Column(nullable = false)
 	private LocalDateTime occurredAt;
 
-	@Column(nullable = false, length = 100)
-	private String category;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
 
 	@Column(nullable = false, precision = 19, scale = 2)
 	private BigDecimal amount;
@@ -40,7 +44,7 @@ public class Transaction {
 		// for JPA
 	}
 
-	public Transaction(LocalDateTime occurredAt, String category, BigDecimal amount, String place, TransactionType type) {
+	public Transaction(LocalDateTime occurredAt, Category category, BigDecimal amount, String place, TransactionType type) {
 		this.occurredAt = occurredAt;
 		this.category = category;
 		this.amount = amount;
@@ -56,7 +60,7 @@ public class Transaction {
 		return occurredAt;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 

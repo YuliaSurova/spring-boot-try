@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public record TransactionResponse(
 		Long id,
 		LocalDateTime occurredAt,
-		String category,
+		CategoryResponse category,
 		BigDecimal amount,
 		String place,
 		TransactionType type
@@ -16,7 +16,7 @@ public record TransactionResponse(
 		return new TransactionResponse(
 				transaction.getId(),
 				transaction.getOccurredAt(),
-				transaction.getCategory(),
+				CategoryResponse.fromEntity(transaction.getCategory()),
 				transaction.getAmount(),
 				transaction.getPlace(),
 				transaction.getType()
